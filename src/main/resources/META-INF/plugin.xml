@@ -1,0 +1,36 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.bugdigger.BranchScope</id>
+    <name>Branch Scope</name>
+    <vendor>bugdigger</vendor>
+
+    <description><![CDATA[
+        Adds a <b>Branch Modified Files</b> entry to the Project view selector.<br>
+        Scopes the visible files to those modified in the current branch:
+        commits since branching from the base branch (<code>main</code>/<code>master</code>/<code>develop</code>, auto-detected),
+        plus uncommitted working-tree changes.<br>
+        Use it to focus on the files that are part of your current PR.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <resource-bundle>messages.BranchScopeBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <customScopesProvider implementation="com.bugdigger.branchscope.scope.BranchScopeCustomScopesProvider"/>
+        <projectViewNodeDecorator implementation="com.bugdigger.branchscope.scope.BranchScopeNodeDecorator"/>
+
+        <projectService serviceImplementation="com.bugdigger.branchscope.service.BranchScopeService"/>
+        <projectService serviceImplementation="com.bugdigger.branchscope.settings.BranchScopeSettings"/>
+
+        <projectConfigurable
+                parentId="tools"
+                id="com.bugdigger.branchscope.settings.BranchScopeConfigurable"
+                instance="com.bugdigger.branchscope.settings.BranchScopeConfigurable"
+                displayName="Branch Scope"/>
+
+        <postStartupActivity implementation="com.bugdigger.branchscope.listener.BranchScopeStartupActivity"/>
+    </extensions>
+
+</idea-plugin>

@@ -1,0 +1,16 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ Platform Gradle Plugin sandbox/IDE downloads
+.intellijPlatform/
+
+# IDE / Kotlin local caches
+.idea/
+.kotlin/
+*.iml
+local.properties
+
+# OS junk
+.DS_Store
+Thumbs.db
